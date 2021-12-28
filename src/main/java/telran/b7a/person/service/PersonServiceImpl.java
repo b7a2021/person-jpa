@@ -1,5 +1,8 @@
 package telran.b7a.person.service;
 
+import java.time.LocalDate;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +12,7 @@ import telran.b7a.person.dao.PersonRepository;
 import telran.b7a.person.dto.AddressDto;
 import telran.b7a.person.dto.PersonDto;
 import telran.b7a.person.dto.exceptions.PersonNotFoundException;
+import telran.b7a.person.model.Address;
 import telran.b7a.person.model.Person;
 
 @Service
@@ -40,39 +44,55 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
+	@Transactional
 	public PersonDto removePerson(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Person person = personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException());
+		personRepository.deleteById(id);
+		return modelMapper.map(person, PersonDto.class);
 	}
 
 	@Override
+	@Transactional
 	public PersonDto updatePersonName(Integer id, String name) {
-		// TODO Auto-generated method stub
-		return null;
+		Person person = personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException());
+		person.setName(name);
+		personRepository.save(person);
+		return modelMapper.map(person, PersonDto.class);
 	}
 
 	@Override
+	@Transactional
 	public PersonDto updatePersonAddress(Integer id, AddressDto addressDto) {
-		// TODO Auto-generated method stub
-		return null;
+		Person person = personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException());
+		person.setAddress(modelMapper.map(addressDto, Address.class));
+		personRepository.save(person);
+		return modelMapper.map(person, PersonDto.class);
 	}
 
 	@Override
 	public Iterable<PersonDto> findPersonsByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return personRepository.findByName(name)
+						.stream()
+						.map(p -> modelMapper.map(p, PersonDto.class))
+						.collect(Collectors.toList());
 	}
 
 	@Override
 	public Iterable<PersonDto> findPersonsBetweenAges(Integer minAge, Integer maxAge) {
-		// TODO Auto-generated method stub
-		return null;
+		LocalDate from = LocalDate.now().minusYears(maxAge);
+		LocalDate to = LocalDate.now().minusYears(minAge);
+		return personRepository.findByBirthDateBetween(from, to)
+				.stream()
+				.map(p -> modelMapper.map(p, PersonDto.class))
+				.collect(Collectors.toList());
 	}
 
 	@Override
 	public Iterable<PersonDto> findPersonsByCity(String city) {
-		// TODO Auto-generated method stub
-		return null;
+		return personRepository.findByAddressCity(city)
+				.stream()
+				.map(p -> modelMapper.map(p, PersonDto.class))
+				.collect(Collectors.toList());
 	}
 
 }
