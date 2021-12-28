@@ -45,7 +45,7 @@ public class PersonController {
 		return personService.updatePersonName(id, name);
 	}
 	
-	@PutMapping("/{id}/name/{name}")
+	@PutMapping("/{id}/address")
 	public PersonDto updatePersonAddress(@PathVariable Integer id, @RequestBody AddressDto addressDto) {
 		return personService.updatePersonAddress(id, addressDto);
 	}
