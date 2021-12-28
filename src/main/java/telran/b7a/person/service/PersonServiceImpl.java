@@ -56,7 +56,6 @@ public class PersonServiceImpl implements PersonService {
 	public PersonDto updatePersonName(Integer id, String name) {
 		Person person = personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException());
 		person.setName(name);
-		personRepository.save(person);
 		return modelMapper.map(person, PersonDto.class);
 	}
 
@@ -65,32 +64,31 @@ public class PersonServiceImpl implements PersonService {
 	public PersonDto updatePersonAddress(Integer id, AddressDto addressDto) {
 		Person person = personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException());
 		person.setAddress(modelMapper.map(addressDto, Address.class));
-		personRepository.save(person);
 		return modelMapper.map(person, PersonDto.class);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Iterable<PersonDto> findPersonsByName(String name) {
 		return personRepository.findByName(name)
-						.stream()
 						.map(p -> modelMapper.map(p, PersonDto.class))
 						.collect(Collectors.toList());
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Iterable<PersonDto> findPersonsBetweenAges(Integer minAge, Integer maxAge) {
 		LocalDate from = LocalDate.now().minusYears(maxAge);
 		LocalDate to = LocalDate.now().minusYears(minAge);
 		return personRepository.findByBirthDateBetween(from, to)
-				.stream()
 				.map(p -> modelMapper.map(p, PersonDto.class))
 				.collect(Collectors.toList());
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Iterable<PersonDto> findPersonsByCity(String city) {
 		return personRepository.findByAddressCity(city)
-				.stream()
 				.map(p -> modelMapper.map(p, PersonDto.class))
 				.collect(Collectors.toList());
 	}

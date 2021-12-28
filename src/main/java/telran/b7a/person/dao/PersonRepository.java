@@ -1,16 +1,17 @@
 package telran.b7a.person.dao;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.stream.Stream;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import telran.b7a.person.model.Person;
 
 public interface PersonRepository extends JpaRepository<Person, Integer> {
-	List<Person> findByName(String name);
 	
-	List<Person> findByBirthDateBetween(LocalDate from, LocalDate to);
+	Stream<Person> findByName(String name);
 	
-	List<Person> findByAddressCity(String city);
+	Stream<Person> findByBirthDateBetween(LocalDate from, LocalDate to);
+	
+	Stream<Person> findByAddressCity(String city);
 }
