@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import telran.b7a.person.dao.PersonRepository;
 import telran.b7a.person.dto.AddressDto;
+import telran.b7a.person.dto.CityPopulationDto;
 import telran.b7a.person.dto.PersonDto;
 import telran.b7a.person.dto.exceptions.PersonNotFoundException;
 import telran.b7a.person.model.Address;
@@ -91,6 +92,11 @@ public class PersonServiceImpl implements PersonService {
 		return personRepository.findByAddressCity(city)
 				.map(p -> modelMapper.map(p, PersonDto.class))
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public Iterable<CityPopulationDto> getCityPopulation() {
+		return personRepository.getCityPopulation();
 	}
 
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import telran.b7a.person.dto.AddressDto;
+import telran.b7a.person.dto.CityPopulationDto;
 import telran.b7a.person.dto.PersonDto;
 import telran.b7a.person.service.PersonService;
 
@@ -63,6 +64,11 @@ public class PersonController {
 	@GetMapping("/city/{city}")
 	public Iterable<PersonDto> findPersonsByCity(@PathVariable String city) {
 		return personService.findPersonsByCity(city);
+	}
+	
+	@GetMapping("/population/city")
+	public Iterable<CityPopulationDto> getCityPopulation() {
+		return personService.getCityPopulation();
 	}
 
 }
