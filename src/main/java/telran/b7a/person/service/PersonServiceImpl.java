@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import telran.b7a.person.dao.PersonRepository;
 import telran.b7a.person.dto.AddressDto;
+import telran.b7a.person.dto.ChildDto;
 import telran.b7a.person.dto.CityPopulationDto;
+import telran.b7a.person.dto.EmployeeDto;
 import telran.b7a.person.dto.PersonDto;
 import telran.b7a.person.dto.exceptions.PersonNotFoundException;
 import telran.b7a.person.dto.exceptions.UnknownPersonTypeException;
@@ -101,6 +103,22 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public Iterable<CityPopulationDto> getCityPopulation() {
 		return personRepository.getCityPopulation();
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Iterable<PersonDto> findEmployeeBySalary(int min, int max) {
+		return personRepository.findBySalaryBetween(min, max)
+				.map(p -> modelMapper.map(p, EmployeeDto.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Iterable<PersonDto> getChildren() {
+		return personRepository.findChildrenBy()
+				.map(c -> modelMapper.map(c, ChildDto.class))
+				.collect(Collectors.toList());
 	}
 	
 	@SuppressWarnings("unchecked")

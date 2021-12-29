@@ -25,7 +25,7 @@ import lombok.Setter;
 @EqualsAndHashCode(of = { "id" })
 @Entity
 @Table(name = "persons")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Person implements Serializable{
 	/**
 	 * 
