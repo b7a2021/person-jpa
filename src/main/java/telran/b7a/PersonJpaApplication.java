@@ -24,18 +24,18 @@ public class PersonJpaApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		if(repository.count() != 0) {
-			return;
-		}
-		Employee p1 = new Employee(1000, "John", LocalDate.of(1990, 5, 12), 
-				new Address("Rehovot", "Herzl", 18), "Motorola", 20000);
-		Employee p2 = new Employee(2000, "Mary", LocalDate.of(1994, 11, 23), 
-				new Address("Lod", "Laskov", 13), "IBM", 21000);
-		Child p3 = new Child(3000, "Peter", LocalDate.of(2018, 3, 26), 
-				new Address("Ashkelon", "Bar Kohba", 117), "Shalom");
-		repository.save(p1);
-		repository.save(p2);
-		repository.save(p3);
+//		if(repository.count() != 0) {
+//			return;
+//		}
+//		Employee p1 = new Employee(1000, "John", LocalDate.of(1990, 5, 12), 
+//				new Address("Rehovot", "Herzl", 18), "Motorola", 20000);
+//		Employee p2 = new Employee(2000, "Mary", LocalDate.of(1994, 11, 23), 
+//				new Address("Lod", "Laskov", 13), "IBM", 21000);
+//		Child p3 = new Child(3000, "Peter", LocalDate.of(2018, 3, 26), 
+//				new Address("Ashkelon", "Bar Kohba", 117), "Shalom");
+//		repository.save(p1);
+//		repository.save(p2);
+//		repository.save(p3);
 		
 	}
 
