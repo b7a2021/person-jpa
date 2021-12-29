@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import telran.b7a.person.dao.PersonRepository;
 import telran.b7a.person.dto.AddressDto;
-import telran.b7a.person.dto.ChildDto;
 import telran.b7a.person.dto.CityPopulationDto;
 import telran.b7a.person.dto.EmployeeDto;
 import telran.b7a.person.dto.PersonDto;

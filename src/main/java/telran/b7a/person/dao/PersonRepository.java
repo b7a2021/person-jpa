@@ -29,6 +29,6 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
 	@Query("select e from Employee e where e.salary between ?1 and ?2")
 	Stream<Employee> findBySalaryBetween(int min, int max);
 
-	@Query("select c from Child c")
+//	@Query("select c from Child c")
 	Stream<Child> findChildrenBy();
 }
